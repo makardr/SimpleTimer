@@ -1,4 +1,4 @@
-package com.example.simpletimer.feature_timer.data.data_source
+package com.example.simpletimer.feature_timer.data.data_source.database
 
 import androidx.room.Dao
 import androidx.room.Delete
