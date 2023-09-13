@@ -16,10 +16,10 @@ class TimerServiceRepositoryImpl(
 ) : TimerServiceRepository {
 
 
-    override fun start() {
+    override fun start(data: String) {
         Intent(context, TimerForegroundService::class.java).also {
             it.action = TimerForegroundService.Actions.START.toString()
-            it.putExtra(INTENT_EXTRA_KEY,"Test value")
+            it.putExtra(INTENT_EXTRA_KEY, data)
             context.startService(it)
         }
     }

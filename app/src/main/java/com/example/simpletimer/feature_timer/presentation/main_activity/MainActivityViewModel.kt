@@ -18,7 +18,13 @@ class MainActivityViewModel @Inject constructor(
         Log.d(TAG,"Initialized")
 
     }
-    fun test(){
-        serviceUseCases.startServiceUseCase()
+
+    fun startService(data: String){
+        serviceUseCases.startServiceUseCase(data)
     }
+
+    fun stopService(){
+        serviceUseCases.stopServiceUseCase()
+    }
+
 }

@@ -4,26 +4,22 @@ import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
-import com.example.simpletimer.ui.theme.SimpleTimerTheme
+import androidx.databinding.DataBindingUtil
+import com.example.simpletimer.R
+import com.example.simpletimer.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: MainActivityViewModel by viewModels()
+    private lateinit var binding: MainActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             ActivityCompat.requestPermissions(
                 this,
@@ -32,34 +28,13 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        viewModel.test()
-
-        setContent {
-            SimpleTimerTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+        binding.btnStart.setOnClickListener {
+            viewModel.startService(binding.tvInput.text.toString())
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+        binding.btnStop.setOnClickListener {
+            viewModel.stopService()
+        }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SimpleTimerTheme {
-        Greeting("Android")
     }
 }

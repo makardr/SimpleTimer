@@ -8,6 +8,7 @@ import com.example.simpletimer.core.values.Constants
 data class TimerEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
+    val active: Boolean = false,
     val title: String,
     val timeMS: Long
 )

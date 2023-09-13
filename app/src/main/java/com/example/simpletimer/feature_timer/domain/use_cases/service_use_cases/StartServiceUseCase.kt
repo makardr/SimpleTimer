@@ -5,7 +5,7 @@ import com.example.simpletimer.feature_timer.domain.repository.TimerServiceRepos
 class StartServiceUseCase (
     private val repository: TimerServiceRepository
 ) {
-    operator fun invoke(){
-        repository.start()
+    operator fun invoke(data:String){
+        repository.start(data)
     }
 }

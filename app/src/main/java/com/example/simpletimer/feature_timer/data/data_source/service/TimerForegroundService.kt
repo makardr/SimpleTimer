@@ -1,5 +1,6 @@
 package com.example.simpletimer.feature_timer.data.data_source.service
 
+import android.app.Notification
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
@@ -35,16 +36,16 @@ class TimerForegroundService : Service() {
 
     private fun startIntent(intent: Intent) {
         Log.d(TAG, "Start")
-        val data = intent.getStringExtra(INTENT_EXTRA_KEY)
-        val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+        startForeground(1, buildNotification(intent.getStringExtra(INTENT_EXTRA_KEY)))
+    }
+
+    private fun buildNotification(data: String?):Notification{
+        return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Run is active")
             .setContentText(data)
             .build()
-        startForeground(1, notification)
     }
-
-
     enum class Actions {
         START, STOP
     }
