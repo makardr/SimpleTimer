@@ -3,6 +3,7 @@ package com.example.simpletimer.feature_timer.data.repository
 import android.content.Context
 import android.content.Intent
 import com.example.simpletimer.SimpleTimerApp
+import com.example.simpletimer.core.values.Constants.INTENT_EXTRA_KEY
 import com.example.simpletimer.feature_timer.data.data_source.service.TimerForegroundService
 import com.example.simpletimer.feature_timer.domain.repository.TimerServiceRepository
 import com.example.simpletimer.feature_timer.domain.use_cases.database_use_cases.TimerUseCases
@@ -18,6 +19,7 @@ class TimerServiceRepositoryImpl(
     override fun start() {
         Intent(context, TimerForegroundService::class.java).also {
             it.action = TimerForegroundService.Actions.START.toString()
+            it.putExtra(INTENT_EXTRA_KEY,"Test value")
             context.startService(it)
         }
     }

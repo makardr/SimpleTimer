@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.util.Log
+import com.example.simpletimer.core.values.Constants.NOTIFICATION_CHANNEL_ID
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -15,7 +16,7 @@ class SimpleTimerApp : Application() {
         super.onCreate()
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
             val channel = NotificationChannel(
-                "foreground_timer_channel",
+                NOTIFICATION_CHANNEL_ID,
                 "Timer notifications",
                 NotificationManager.IMPORTANCE_HIGH
             )
