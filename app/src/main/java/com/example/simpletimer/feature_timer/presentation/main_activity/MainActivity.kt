@@ -36,5 +36,8 @@ class MainActivity : ComponentActivity() {
             viewModel.stopService()
         }
 
+        binding.btnAddTimer.setOnClickListener {
+            viewModel.addTimer(binding.tiTime.text.toString(), binding.tiTimerName.text.toString())
+        }
     }
 }

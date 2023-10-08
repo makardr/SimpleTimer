@@ -2,14 +2,9 @@ package com.example.simpletimer.feature_timer.data.repository
 
 import android.content.Context
 import android.content.Intent
-import com.example.simpletimer.SimpleTimerApp
 import com.example.simpletimer.core.values.Constants.INTENT_EXTRA_KEY
-import com.example.simpletimer.feature_timer.data.data_source.service.TimerForegroundService
+import com.example.simpletimer.feature_timer.presentation.service.TimerForegroundService
 import com.example.simpletimer.feature_timer.domain.repository.TimerServiceRepository
-import com.example.simpletimer.feature_timer.domain.use_cases.database_use_cases.TimerUseCases
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
-
 
 class TimerServiceRepositoryImpl(
     private val context: Context

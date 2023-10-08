@@ -38,7 +38,41 @@
             android:layout_marginBottom="66dp"
             android:ems="10"
             android:inputType="text"
-            android:text="Text" />
+            android:text="0" />
+
+        <Button
+            android:id="@+id/btnAddTimer"
+            android:layout_width="365dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvInput"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="170dp"
+            android:text="Add timer" />
+
+        <EditText
+            android:id="@+id/tiTimerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tiTime"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="196dp"
+            android:layout_marginBottom="30dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Timer name" />
+
+        <EditText
+            android:id="@+id/tiTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnAddTimer"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="193dp"
+            android:layout_marginBottom="64dp"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Time in ms" />
     </RelativeLayout>
 
 </layout>
