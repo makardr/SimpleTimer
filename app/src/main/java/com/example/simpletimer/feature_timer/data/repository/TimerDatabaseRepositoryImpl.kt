@@ -7,9 +7,13 @@ import kotlinx.coroutines.flow.Flow
 
 class TimerDatabaseRepositoryImpl(
     private val dao: TimerDao
-):TimerRepository {
+) : TimerRepository {
     override fun getTimers(): Flow<List<TimerEntity>> {
         return dao.getTimers()
+    }
+
+    override suspend fun getTimerById(id: Int): TimerEntity? {
+        return dao.getTimerById(id)
     }
 
     override suspend fun saveTimer(timerEntity: TimerEntity) {

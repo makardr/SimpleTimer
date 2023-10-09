@@ -14,6 +14,9 @@ interface TimerDao {
     @Query("SELECT * FROM timers_table")
     fun getTimers(): Flow<List<TimerEntity>>
 
+    @Query("SELECT * FROM timers_table WHERE id = :id")
+    suspend fun getTimerById(id: Int): TimerEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveTimer(timerEntity: TimerEntity)
 

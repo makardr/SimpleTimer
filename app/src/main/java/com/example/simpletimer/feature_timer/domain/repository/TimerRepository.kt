@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TimerRepository {
     fun getTimers(): Flow<List<TimerEntity>>
+    suspend fun getTimerById(id: Int): TimerEntity?
     suspend fun saveTimer(timerEntity: TimerEntity)
     suspend fun deleteTimer(timerEntity: TimerEntity)
 }

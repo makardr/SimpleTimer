@@ -10,6 +10,7 @@ import com.example.simpletimer.feature_timer.data.repository.TimerServiceReposit
 import com.example.simpletimer.feature_timer.domain.repository.TimerRepository
 import com.example.simpletimer.feature_timer.domain.repository.TimerServiceRepository
 import com.example.simpletimer.feature_timer.domain.use_cases.database_use_cases.DeleteTimerUseCase
+import com.example.simpletimer.feature_timer.domain.use_cases.database_use_cases.GetTimerByIdUseCase
 import com.example.simpletimer.feature_timer.domain.use_cases.database_use_cases.GetTimersUseCase
 import com.example.simpletimer.feature_timer.domain.use_cases.database_use_cases.SaveTimerUseCase
 import com.example.simpletimer.feature_timer.domain.use_cases.database_use_cases.TimerUseCases
@@ -48,7 +49,8 @@ object AppModule {
         return TimerUseCases(
             getTimersUseCase = GetTimersUseCase(repository),
             saveTimerUseCase = SaveTimerUseCase(repository),
-            deleteTimerUseCase = DeleteTimerUseCase(repository)
+            deleteTimerUseCase = DeleteTimerUseCase(repository),
+            getTimerByIdUseCase = GetTimerByIdUseCase(repository)
         )
     }
     @Provides
