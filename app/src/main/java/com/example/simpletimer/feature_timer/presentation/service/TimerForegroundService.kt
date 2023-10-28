@@ -2,7 +2,6 @@ package com.example.simpletimer.feature_timer.presentation.service
 
 import android.app.Notification
 import android.content.Intent
-import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
@@ -26,9 +25,9 @@ class TimerForegroundService : LifecycleService() {
     private val TAG = "TimerForegroundService"
     private val serviceLifecycleDispatcher = ServiceLifecycleDispatcher(this)
 
-    override fun onBind(intent: Intent): IBinder? {
-        return super.onBind(intent)
-    }
+//    override fun onBind(intent: Intent): IBinder? {
+//        return super.onBind(intent)
+//    }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
@@ -41,9 +40,26 @@ class TimerForegroundService : LifecycleService() {
 
     private fun startIntent(intent: Intent) {
         Log.d(TAG, "Start")
-        startForeground(1, buildNotification(intent.getStringExtra(INTENT_EXTRA_KEY)))
-        startTimerFromDb(intent.getStringExtra(INTENT_EXTRA_KEY))
+        val timerId = intent.getStringExtra(INTENT_EXTRA_KEY)
+        startForeground(1, buildNotification(timerId))
 
+        lifecycleScope.launch {
+            if (timerId != null) {
+                startTimer(timerId)
+            }
+        }
+    }
+
+    private suspend fun startTimer(timerId:String){
+        val timerEntity =
+            timerUseCases.getTimerByIdUseCase(timerId)
+        timerEntity?.let {
+            val timer = MillisecondsCountdownTimer(it.timeMS, 1000)
+            timer.start()
+            Log.d(TAG, "Timer should start")
+        } ?: run {
+            Log.e(TAG, "Timer entity is null")
+        }
     }
 
     private fun buildNotification(data: String?): Notification {
@@ -52,27 +68,6 @@ class TimerForegroundService : LifecycleService() {
             .setContentTitle("Run is active")
             .setContentText(data)
             .build()
-    }
-
-    // Move this function to the use case
-    private fun startTimerFromDb(id: String?) {
-        if (id != null) {
-            lifecycleScope.launch {
-                Log.d(TAG, "Attempting to start timer id $id")
-                val timerEntity = timerUseCases.getTimerByIdUseCase(id.toInt())
-                timerEntity?.let {
-                    val timer = MillisecondsCountdownTimer(it.timeMS, 1000)
-                    timer.start()
-                    Log.d(TAG, "Timer should be started")
-                } ?: run {
-                    Log.e(TAG, "Timer entity is null")
-                }
-
-            }
-        } else {
-            Log.e(TAG, "id was null")
-        }
-
     }
 
 
