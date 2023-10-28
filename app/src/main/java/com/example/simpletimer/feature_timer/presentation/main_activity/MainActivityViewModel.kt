@@ -36,7 +36,6 @@ class MainActivityViewModel @Inject constructor(
         viewModelScope.launch{
             timerUseCases.saveTimerUseCase(TimerEntity(timeMS = timeString.toLong(), title = timerTitle))
         }
-
     }
 
 }

@@ -54,6 +54,7 @@ class TimerForegroundService : LifecycleService() {
             .build()
     }
 
+    // Move this function to the use case
     private fun startTimerFromDb(id: String?) {
         if (id != null) {
             lifecycleScope.launch {
