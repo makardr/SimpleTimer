@@ -24,7 +24,7 @@ class TimerForegroundService : LifecycleService() {
 
     private val TAG = "TimerForegroundService"
     private val serviceLifecycleDispatcher = ServiceLifecycleDispatcher(this)
-
+    //TODO Flow list with all timers from the timers database, should interact with it by adding timers to the database
 //    override fun onBind(intent: Intent): IBinder? {
 //        return super.onBind(intent)
 //    }
@@ -45,20 +45,21 @@ class TimerForegroundService : LifecycleService() {
 
         lifecycleScope.launch {
             if (timerId != null) {
-                startTimer(timerId)
+                val timer = createTimer(timerId)
+                timer?.start()
             }
         }
     }
 
-    private suspend fun startTimer(timerId:String){
+    private suspend fun createTimer(timerId: String): SecondsCountdownTimer? {
         val timerEntity =
             timerUseCases.getTimerByIdUseCase(timerId)
         timerEntity?.let {
-            val timer = MillisecondsCountdownTimer(it.timeMS, 1000)
-            timer.start()
-            Log.d(TAG, "Timer should start")
+            Log.d(TAG, "Timer started")
+            return SecondsCountdownTimer(it)
         } ?: run {
             Log.e(TAG, "Timer entity is null")
+            return null
         }
     }
 
